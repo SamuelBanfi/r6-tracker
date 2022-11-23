@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
-// listen for event's form client
+// listen for events from client
 io.on('connection', (socket) => {
     // listen specific named event
     /*socket.on('new-notice', (data) => {
@@ -26,7 +26,6 @@ io.on('connection', (socket) => {
 
         general(platform, username).then(() => {
             rank(platform, username).then(() => {
-                console.log(statistics);
                 socket.emit('player-data', statistics);
             });
         });

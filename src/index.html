@@ -26,59 +26,61 @@
             <br>
             <input type="submit" value="SUBMIT" class="btn btn-primary w-100">
         </form>
-        <div class="d-flex">
-            <div style="flex: 1">
-                <img id="playerImage">
+        <div class="d-none" id="statistics">
+            <div class="d-flex">
+                <div style="flex: 1">
+                    <img id="playerImage">
+                </div>
+                <div style="flex: 1">
+                    <h3 id="playerName"></h3>
+                    <hr>
+                    <h4 id="playerLevel"></h4>
+                </div>
             </div>
-            <div style="flex: 1">
-                <h3 id="playerName"></h3>
-                <hr>
-                <h4 id="playerLevel"></h4>
-            </div>
-        </div>
-        <div class="mt-5"></div>
-        <div>
-            <h2>General</h2>
-            <div class="mt-3"></div>
-            <table class="table table-fixed">
-                <thead>
+            <div class="mt-5"></div>
+            <div>
+                <h2>General</h2>
+                <div class="mt-3"></div>
+                <table class="table table-fixed">
+                    <thead>
                     <tr>
                         <th class="col">KILLS</th>
                         <th class="col">K/D RATIO</th>
                         <th class="col">WIN</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <tr>
                         <td id="playerKills"></td>
                         <td id="playerKDRatio"></td>
                         <td id="playerWin"></td>
                     </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="mt-5"></div>
-        <div>
-            <h2>Ranked</h2>
-            <div class="mt-3"></div>
-            <table class="table table-fixed">
-                <thead>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-5"></div>
+            <div>
+                <h2>Ranked</h2>
+                <div class="mt-3"></div>
+                <table class="table table-fixed">
+                    <thead>
                     <tr>
                         <th>ICON</th>
                         <th>RANK</th>
                         <th>MMR</th>
                         <th>MATCHES</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <tr>
                         <td><img id="rankIcon"></td>
                         <td id="playerRank"></td>
                         <td id="playerRankMMR"></td>
                         <td id="playerRankedMatches"></td>
                     </tr>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <script src="/socket.io/socket.io.js"></script>
@@ -86,6 +88,7 @@
         var socket = io();
 
         var form = document.querySelector('#form');
+        var statistics = document.querySelector('#statistics');
         var platform = document.querySelector('#platform');
         var username = document.querySelector('#username');
 
@@ -95,6 +98,7 @@
         var playerKDRatio = document.querySelector('#playerKDRatio');
         var playerLevel = document.querySelector('#playerLevel');
         var playerWin = document.querySelector('#playerWin');
+
         var playerRankMMR = document.querySelector('#playerRankMMR');
         var playerRank = document.querySelector('#playerRank');
         var rankIcon = document.querySelector('#rankIcon');
@@ -109,7 +113,8 @@
             }
 
             socket.emit('request-player-data', payload);
-            form.style.display = "none";
+            form.style.display = 'none';
+            statistics.classList.remove('d-none');
         });
 
         socket.on('player-data', (data) => {
