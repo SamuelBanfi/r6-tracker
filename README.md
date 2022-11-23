@@ -11,6 +11,16 @@ This is a statistics tracker for Rainbow Six Siege. You can see the statistics o
 
 <br>
 
+### Example
+
+#### Search player
+![search](images/search.png)
+
+#### List all statistics
+![statistics](images/statistics.png)
+
+<br>
+
 ### Installation
 1. Download the project.
 2. Install the latest versione of `Node.js` from the official [website](https://nodejs.org/en/download/).
