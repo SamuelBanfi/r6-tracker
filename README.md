@@ -1,7 +1,7 @@
 # R6 Tracker
 
 ### Description
-This is a statistics tracker for Rainbow Six Siege. You can see the statistics of any player choosing from the various platforms (PC, Xbox and PlayStation). With this project a user can see the most searched information of a player.
+This is a statistics tracker for Rainbow Six Siege. You can see the statistics of any player choosing from the various platforms (PC, Xbox and PlayStation). With this project a user can see the most searched information of a player. There are different data for general, casual and ranked.
 - Level
 - K/D Ratio
 - Kills
