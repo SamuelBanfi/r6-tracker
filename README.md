@@ -14,10 +14,14 @@ This is a statistics tracker for Rainbow Six Siege. You can see the statistics o
 ### Example
 
 #### Search player
-![search](images/search.png)
+<div align="center">
+  <img src="images/search.png" alt="search" style="width:50%">
+</div>
 
 #### List all statistics
-![statistics](images/statistics.png)
+<div align="center">
+  <img src="images/statistics.png" alt="statistics" style="width:50%">
+</div>
 
 <br>
 
