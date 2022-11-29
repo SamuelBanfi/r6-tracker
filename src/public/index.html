@@ -26,6 +26,11 @@
             <br>
             <input type="submit" value="SUBMIT" class="btn btn-primary w-100">
         </form>
+        <div class="d-none" id="error">
+            <div class="alert alert-danger" role="alert">
+                Invalid username or platform provided!
+            </div>
+        </div>
         <div class="d-none" id="statistics">
             <div class="d-flex">
                 <div style="flex: 1">
@@ -84,26 +89,20 @@
         </div>
     </div>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="./generalStats.js"></script>
+    <script src="./rankedStats.js"></script>
     <script>
         var socket = io();
 
         var form = document.querySelector('#form');
+        var error = document.querySelector('#error');
         var statistics = document.querySelector('#statistics');
         var platform = document.querySelector('#platform');
         var username = document.querySelector('#username');
 
-        var playerImage = document.querySelector('#playerImage');
-        var playerName = document.querySelector('#playerName');
-        var playerKills = document.querySelector('#playerKills');
-        var playerKDRatio = document.querySelector('#playerKDRatio');
-        var playerLevel = document.querySelector('#playerLevel');
-        var playerWin = document.querySelector('#playerWin');
-
-        var playerRankMMR = document.querySelector('#playerRankMMR');
-        var playerRank = document.querySelector('#playerRank');
-        var rankIcon = document.querySelector('#rankIcon');
-        var playerRankedMatches = document.querySelector('#playerRankedMatches');
-
+        /**
+         * Emit the form data to the server.
+         */
         form.addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -113,32 +112,24 @@
             }
 
             socket.emit('request-player-data', payload);
-            form.style.display = 'none';
-            statistics.classList.remove('d-none');
         });
 
+        /**
+         * Set the player statistics on the page.
+         */
         socket.on('player-data', (data) => {
-            console.log(data);
+            if (data.error) {
+                error.classList.remove('d-none');
+                return;
+            }
+
+            error.classList.add('d-none');
+            form.style.display = 'none';
+            statistics.classList.remove('d-none');
+
             setGeneralData(data.general);
             setRankData(data.rank);
         });
-
-        function setGeneralData(data) {
-            playerName.innerHTML = data.name;
-            playerLevel.innerHTML = "Level " + data.level;
-
-            playerImage.setAttribute('src', data.header);
-            playerKills.innerHTML = data.kills;
-            playerKDRatio.innerHTML = data.kd;
-            playerWin.innerHTML = data.wins;
-        }
-
-        function setRankData(data) {
-            rankIcon.setAttribute('src', data.rank_img);
-            playerRank.innerHTML = data.rank;
-            playerRankMMR.innerHTML = data.mmr;
-            playerRankedMatches.innerHTML = data.matches;
-        }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
